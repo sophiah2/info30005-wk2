@@ -1,3 +1,4 @@
+const axios = require('axios')
 var express = require('express');
 var mongoose = require('mongoose');
 process.env.EDAMOM_ID="718c5205";
@@ -24,27 +25,30 @@ router.get('/login', function(req,res){
 
 
     router.get('/search', function (req, res) {
+        
         var ing=req.query.Recipe_Search;
         console.log(ing)
-        var response = {
-          url: 'https://api.edamam.com/search?q=' + ing + '&app_id=' + process.env.EDAMOM_ID + '&app_key=' + process.env.EDAMOM_KEY + '&from=' + 0 + '&to=' + 10,
-          method: 'GET'
-        }
-        console.log("response: ", response);
-            const recipeResults = response;
+        var qurl="https://api.edamam.com/search?q=" + ing + "&app_id=" + process.env.EDAMOM_ID + "&app_key=" + process.env.EDAMOM_KEY + "&from=" + 0 + "&to=" + 10;
+        console.log(qurl);
+        const res1 = axios.get(qurl);
+         const recipes = res1;
+        console.log(recipes);
+        recipes.then(function(result) {
+            recipeResults=result.data; // "Some User token"
             for (i = 0; i < 9; i++) {
                 const recipe = recipeResults.hits[i].recipe;
                 const label = recipe.label;
                 const image = recipe.image;
                 const url = recipe.url;
                 const calories = recipe.calories.toFixed(2);
-                recipeRender(i, image, label, calories, url);
-                console.log("recipes: ", recipe);
+                
+                console.log("recipes: ", recipe.label);
                 console.log("label: ", label);
                 console.log("label: ", image);
                 console.log("label: ", url);
                 console.log("label: ", calories);
             };
+         })
 
         });
 
