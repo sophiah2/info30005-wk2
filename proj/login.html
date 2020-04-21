@@ -1,9 +1,14 @@
 <div class="log-form">
   <h2>Login to your account</h2>
-  <form>
-    <input type="email" title="email" placeholder="email" />
-    <input type="password" title="password" placeholder="password" />
-    <button type="submit" class="btn">Login</button>
+  <form action="/credentials" method="post">
+    <input class="box" type="email" name="email" id="email" 
+    placeholder="E-Mail " required /><br> 
+                      
+    <input class="box" type="password" name="password" 
+    id="password" placeholder="Password " required/><br> 
     
+    <input type="submit" id="submitDetails"  
+    name="submitDetails" value="Submit" /><br> 
+              
   </form>
 </div><!--end log form -->

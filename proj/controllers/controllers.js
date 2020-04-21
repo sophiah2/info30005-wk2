@@ -17,7 +17,7 @@ var createUser = function(req, res) {
     
     user.save(function(err, newUser) {
         if (!err) {
-            res.send(newUser);
+            res.sendfile("login.html");
         } else {
             res.sendStatus(400);
         }
@@ -50,14 +50,20 @@ var findOneUser = function(req, res) {
 //Find one user by name
 var findUserByName = function(req, res) {
     var userName = req.params.name;
+    console.log(userName);
     User.findOne({name:userName}, function(err, user) {
         if (!err) {
+            console.log("errrr")
             res.send(user);
         } else {
             res.sendStatus(404);
+            console.log("errrr1")
         }
     });
 };
+
+
+
 
 //Update user's data by name
 //Can't change the name, otherwise, it won't be able to find it

@@ -25,6 +25,10 @@ const recipeSchema = new mongoose.Schema({
     userId: {
         type: String,
         required: false
+    },
+    url: {
+        type: String,
+        required: false
     }
 });
 
