@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('users');
+var Recipe = mongoose.model('recipes');
 var express = require('express');
 const app = express();
 var bodyParser = require('body-parser');
@@ -65,53 +66,6 @@ var findUserByName = function(req, res) {
 
 
 
-//Update user's data by name
-//Can't change the name, otherwise, it won't be able to find it
-var updateUserByName = function(req, res) {
-    var userName = req.params.name;
-    User.findOne({name:userName}, function(err, user) {
-        if (err) {
-            res.sendStatus(404);
-        }
-        
-        user.createdAt = req.body.createdAt;
-        user.userId = req.body.userId;
-        user.name = req.body.name;
-        user.email = req.body.email;
-        user.password = req.body.password;
-        
-
-        user.save(function(err) {
-            if (err)
-                res.sendStatus(404);
-
-            res.send(user);
-        });
-    });
-
-};
-
-//Update user's data by id
-var updateUserById = function(req, res) {
-    User.findById(req.params.id, function(err, user) {
-        if (err) {
-            res.sendStatus(404);
-        }
-       
-        user.createdAt = req.body.createdAt;
-        user.userId = req.body.userId;
-        user.name = req.body.name;
-        user.email = req.body.email;
-        user.password = req.body.password;
-        user.save(function(err) {
-            if (err)
-                res.sendStatus(404);
-
-            res.send(user);
-        });
-    });
-};
-
 
 //Delete user by id
 var deleteUserById = function(req, res) {
@@ -125,18 +79,47 @@ var deleteUserById = function(req, res) {
    });
 };
 
-var  addRecipe = function(res, label, image, url, calories, UserId){
-    db.Recipe.create({
-        label: label,
-        image: image,
-        url: url,
-        calories: calories,
-        UserId: UserId
-    }).then(function(dbRecipe){
-        //console.log(dbRecipe);
-        return res.json(dbRecipe);
-    })
-}
+var  addRecipe = function(req, res){
+
+    console.log(req.body.label);
+    var recipe = new Recipe({
+    "userId":req.body.userId,
+    "label":req.body.label,
+    "image": req.body.image,
+    "url":req.body.url 
+    });
+    
+    recipe.save(function(err, newfav) {
+        if (!err) {
+            res.send(newfav);
+        } else {
+            res.sendStatus(400);
+        }
+    });
+    
+  
+};
+
+var findAllfav = function(req, res) {
+    Recipe.find(function(err, recipes) {
+        if (!err) {
+            res.send(recipes);
+        } else {
+            res.sendStatus(404);
+        }
+    });
+};
+
+var findfavById= function(req, res) {
+    var favuserid = req.params.id;
+    Recipe.findById(favuserid, function(err, favourite) {
+        if (!err) {
+            res.send(favourite);
+        } else {
+            res.sendStatus(404);
+        }
+    });
+};
 
 
 
@@ -144,7 +127,7 @@ module.exports.createUser = createUser;
 module.exports.findAllUsers = findAllUsers;
 module.exports.findOneUser = findOneUser;
 module.exports.findUserByName = findUserByName;
-module.exports.updateUserById = updateUserById;
-module.exports.updateUserByName = updateUserByName;
 module.exports.deleteUserById = deleteUserById;
 module.exports.addRecipe = addRecipe;
+module.exports.findAllfav = findAllfav;
+module.exports.findfavById=findfavById;

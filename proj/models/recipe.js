@@ -1,37 +1,11 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-
-const recipeSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: false
-    },
-    ingredients: {
-        type: String,
-        required: false
-    },
-    image: {
-        type: String,
-        required: false
-    },
-    directions: {
-        type: String,
-        required: false
-    },
-    notes: {
-        type: String,
-        required: false
-    },
-    userId: {
-        type: String,
-        required: false
-    },
-    url: {
-        type: String,
-        required: false
+var mongoose = require('mongoose');
+var RecipeSchema = mongoose.Schema(
+    {
+    "userId":{ type: String, required: true },
+    "label":{ type: String, required: true },
+    "image": { type: String, required: true },
+    "url":{ type: String, required: true } 
     }
-});
+);
 
-const Recipe = mongoose.model('Recipe', recipeSchema);
-
-module.exports = Recipe;
+var recipes = mongoose.model('recipes', RecipeSchema);

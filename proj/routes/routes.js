@@ -6,7 +6,7 @@ process.env.EDAMOM_KEY="ba10effb18afdc98b4750044768b3889";
 router = express.Router();
 var User = mongoose.model('users');
 var controller = require('../controllers/controllers.js');
-
+var currentuser;
 
 
 const app = express();
@@ -38,7 +38,8 @@ router.post('/credentials',  function(req, res) {
     console.log(userEmail);
     User.findOne({email:userEmail,password:userPassword}, function(err,user) {
         if (!err  && user!=null) {
-            console.log(user);
+            currentuser=user._id;
+           
             res.sendfile("search.html");
         } else {
             res.sendfile("login.html");
@@ -91,11 +92,11 @@ router.post('/credentials',  function(req, res) {
     
                 buildTheHtmlOutput += '<form action="/addfavourites" method="post">';
                 buildTheHtmlOutput += '<div class="addButton">';
-                buildTheHtmlOutput += '<input type="hidden" class="title" value="' + recipe.label + '">';
-                buildTheHtmlOutput += '<input type="hidden" class="ingredients" value="' + recipe.ingredientLines.toString() + '">';
-                buildTheHtmlOutput += '<input type="hidden" class="image" value="' + recipe.image + '">';
-                buildTheHtmlOutput += '<input type="hidden" class="url" value="' + recipe.url + '">';
-                buildTheHtmlOutput += '<button type="submit" class="addSuccessButton green jsSuccessButton">Add</button>';
+                buildTheHtmlOutput += '<input type="hidden"  name="label" id="label" value="' + recipe.label + '">';
+                buildTheHtmlOutput += '<input type="hidden"  name="userId" id="userId" value="' + currentuser + '">';
+                buildTheHtmlOutput += '<input type="hidden"  name="image" id="image" value="' + recipe.image + '">';
+                buildTheHtmlOutput += '<input type="hidden"  name="url" id="url" value="' + recipe.url + '">';
+                buildTheHtmlOutput += '<button type="submit" class="submit">Add</button>';
                 buildTheHtmlOutput += '</div>';
                 buildTheHtmlOutput += '</form>';
                 buildTheHtmlOutput += '</li>';
@@ -110,6 +111,7 @@ router.post('/credentials',  function(req, res) {
                 
             }
             buildTheHtmlOutput+='<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><script src="js/script.js"></script></body></html>'
+            console.log(currentuser)
             res.send(buildTheHtmlOutput);
             
          });
@@ -120,7 +122,9 @@ router.post('/credentials',  function(req, res) {
 
 
 
-router.post('/addfavourites', );
+router.post('/addfavourites',controller.addRecipe);
+router.get('/favourites', controller.findAllfav);
+router.get('/favourites/userid/:userid', controller.findfavById);
 router.post('/users', controller.createUser);
 router.get('/users', controller.findAllUsers);
  
@@ -130,11 +134,6 @@ router.get('/users/id/:id', controller.findOneUser);
 //Find one user by name
 router.get('/users/name/:name', controller.findUserByName);
 
-//Update user's data by name
-router.put('/users/name/:name', controller.updateUserByName);
-
-//Update user's data by id
-router.put('/users/id/:id', controller.updateUserById);
 
 
 
