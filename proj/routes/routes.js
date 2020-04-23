@@ -52,8 +52,20 @@ router.post('/credentials',  function(req, res) {
     router.get('/search', function (req, res) {
         
         var ing=req.query.Recipe_Search;
+        var diet="&diet=";
+        if (req.query.diet=="none") {
+            diet="";
+        } else {
+            diet = diet + req.query.diet;
+        }
+        var health="&health=";
+        if (req.query.health=="none") {
+            health="";
+        } else {
+            health = health + req.query.health;
+        }
         console.log(ing)
-        var qurl="https://api.edamam.com/search?q=" + ing + "&app_id=" + process.env.EDAMOM_ID + "&app_key=" + process.env.EDAMOM_KEY + "&from=" + 0 + "&to=" + 10;
+        var qurl="https://api.edamam.com/search?q=" + ing + "&app_id=" + process.env.EDAMOM_ID + "&app_key=" + process.env.EDAMOM_KEY + "&from=" + 0 + "&to=" + 10 + diet + health;
         console.log(qurl);
         var buildTheHtmlOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link href="css/normalize.css" rel="stylesheet"><link href="css/style.css" rel="stylesheet"></head><body>';
         const res1 = axios.get(qurl);

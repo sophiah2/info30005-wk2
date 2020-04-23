@@ -33,14 +33,31 @@ crossorigin="anonymous">
                               
             <input class="box" type="Recipe_Search" name="Recipe_Search" id="Recipe_Search" 
             placeholder="Recipe_Search"  required /><br> 
-            <input type="submit" id="submitDetails"  
-            name="submitDetails" value="Submit" /><br> 
+
+
+            <p> Choose a health filter </p>
+            <select id="health_id" name="health">
+                <option value="none">None</option>
+                <option value="vegan">Vegan</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="sugar-conscious">Low sugar</option>
+                <option value="peanut-free">Peanut free</option>
+                <option value="tree-nut-free">Tree nut free</option>
+                <option value="alcohol-free">Alcohol free</option>
+            </select>
+            <p> Choose a dietary filter </p>
+            <select id="diet_id" name="diet">
+                <option value="none">None</option>
+                <option value="balanced">Balanced</option>
+                <option value="high-protein">High protein</option>
+                <option value="low-fat">Low fat</option>
+                <option value="low-carb">Low carb</option>
+            </select>
+            <input type="submit" id="submitDetails"
+                   name="submitDetails" value="Submit" /><br>
+            </form>
                       
-            </form> 
-                      
-        </div> 
-                  
-                  
+        </div>
         <div class="col-md-3"> 
         </div> 
                   
