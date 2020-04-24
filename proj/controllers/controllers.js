@@ -111,9 +111,11 @@ var findAllfav = function(req, res) {
 };
 
 var findfavById= function(req, res) {
-    var favuserid = req.params.id;
-    Recipe.findById(favuserid, function(err, favourite) {
+    var favuserid = req.params.userid;
+    console.log(favuserid);
+    Recipe.find({userId:favuserid}, function(err, favourite) {
         if (!err) {
+            console.log(favourite);
             res.send(favourite);
         } else {
             res.sendStatus(404);
