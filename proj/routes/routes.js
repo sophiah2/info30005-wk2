@@ -15,18 +15,17 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 
-
 router.get('/signup', function (req, res) {
     res.sendfile("signup.html");
-    
-    
+
+
 });
 
 router.get('/searchpage', function (req, res) {
-    
+
     res.sendfile("search.html");
-    
-    
+
+
 });
 router.get('/login', function(req,res){
     res.sendfile("login.html");
@@ -40,11 +39,11 @@ router.post('/credentials',  function(req, res) {
     User.findOne({email:userEmail,password:userPassword}, function(err,user) {
         if (!err  && user!=null) {
             currentuser=user._id;
-           
+
             res.sendfile("search.html");
         } else {
             res.sendfile("login.html");
-            
+
         }
     });
 });
@@ -93,7 +92,7 @@ router.get('/displayfavourites', function(req,res){
 
 
     router.get('/search', function (req, res) {
-        
+
         var ing=req.query.Recipe_Search;
         var diet="&diet=";
         if (req.query.diet=="none") {
@@ -113,7 +112,7 @@ router.get('/displayfavourites', function(req,res){
         var buildTheHtmlOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link href="css/normalize.css" rel="stylesheet"><link href="css/style.css" rel="stylesheet"></head><body>';
         const res1 = axios.get(qurl);
          const recipes = res1;
-        
+
         recipes.then(function(result) {
             recipeResults=result.data; // "Some User token"
             for (i = 0; i < 9; i++) {
@@ -130,9 +129,9 @@ router.get('/displayfavourites', function(req,res){
                 buildTheHtmlOutput += '</span>';
                 buildTheHtmlOutput += '</a>';
                 buildTheHtmlOutput += '</div>';
-    
+
                 buildTheHtmlOutput += '<h3 class="resultsTitle">' + recipe.label + '</h3>';
-    
+
                 buildTheHtmlOutput += '<div class="data">';
                 buildTheHtmlOutput += '<a class="cal" href="#">';
                 buildTheHtmlOutput += '<span class="num">' + recipe.calories.toFixed(2) + '</span><br />';
@@ -144,7 +143,7 @@ router.get('/displayfavourites', function(req,res){
                 buildTheHtmlOutput += '<span class="info"> ingredients</span>';
                 buildTheHtmlOutput += '</a>';
                 buildTheHtmlOutput += '</div>';
-    
+
                 buildTheHtmlOutput += '<form action="/addfavourites" method="post">';
                 buildTheHtmlOutput += '<div class="addButton">';
                 buildTheHtmlOutput += '<input type="hidden"  name="label" id="label" value="' + recipe.label + '">';
@@ -156,23 +155,23 @@ router.get('/displayfavourites', function(req,res){
                 buildTheHtmlOutput += '</form>';
                 buildTheHtmlOutput += '</li>';
 
-                
+
                 console.log("recipes: ", recipe.label);
                 console.log("label: ", label);
                 console.log("label: ", image);
                 console.log("label: ", url);
                 console.log("label: ", calories);
-                
-                
+
+
             }
             buildTheHtmlOutput+='<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><script src="js/script.js"></script></body></html>'
             console.log(currentuser)
             res.send(buildTheHtmlOutput);
-            
-         });
-         
 
-         
+         });
+
+
+
         });
 
 
@@ -182,10 +181,10 @@ router.get('/favourites', controller.findAllfav);
 router.get('/favourites/userid/:userid', controller.findfavById);
 router.post('/users', controller.createUser);
 router.get('/users', controller.findAllUsers);
- 
+
 // Find one user by id
 router.get('/users/id/:id', controller.findOneUser);
- 
+
 //Find one user by name
 router.get('/users/name/:name', controller.findUserByName);
 
