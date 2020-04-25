@@ -17,6 +17,7 @@
     "mongoose": "^5.9.5",
     "nodeman": "^1.1.2",
     "nodemon": "^2.0.2",
+    "axios": "^0.19.2",
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
