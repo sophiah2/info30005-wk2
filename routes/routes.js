@@ -9,7 +9,6 @@ var Recipe = mongoose.model('recipes');
 var controller = require('../controllers/controllers.js');
 var currentuser;
 
-
 const app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
