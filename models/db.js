@@ -16,7 +16,7 @@ mongoose.connect(dbURI, options).then(
    console.log("Database connection established!");
  },
  err => {
-   console.log("Error connecting Database instance due to: ", err);
+   console.log("cant connect to database ", err);
  }
 );
 

@@ -81,7 +81,7 @@ var deleteUserById = function(req, res) {
 
 var  addRecipe = function(req, res){
 
-    console.log(req.body.label);
+    console.log(req.body.userId);
     var recipe = new Recipe({
     "userId":req.body.userId,
     "label":req.body.label,
