@@ -168,14 +168,7 @@ router.get('/favourites', controller.findAllfav);
 router.get('/favourites/userid/:userid', controller.findfavById);
 router.post('/users', controller.createUser);
 router.get('/users', controller.findAllUsers);
-
-// Find one user by id
 router.get('/users/id/:id', controller.findOneUser);
-
-//Find one user by name
 router.get('/users/name/:name', controller.findUserByName);
-
-
-
 
 module.exports = router;
