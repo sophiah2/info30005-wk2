@@ -133,26 +133,25 @@ router.get('/displayfavourites', function(req,res){
                 buildTheHtmlOutput += '<h3 class="resultsTitle">' + recipe.label + '</h3>';
 
                 buildTheHtmlOutput += '<div class="data">';
-                buildTheHtmlOutput += '<a class="cal" href="#">';
+                buildTheHtmlOutput += '<div class="cal" href="#">';
+                buildTheHtmlOutput += '<span class="info"> Calories: </span>';
                 buildTheHtmlOutput += '<span class="num">' + recipe.calories.toFixed(2) + '</span><br />';
-                buildTheHtmlOutput += '<span class="info"> calories</span><br />';
-                buildTheHtmlOutput += '</a>';
-                buildTheHtmlOutput += '<a class="ing" href="#">';
-                buildTheHtmlOutput += '<span class="num">' + recipe.ingredients.length + '</span><br />';
-                buildTheHtmlOutput += '<span class="num">' + recipe.url + '</span><br />';
-                buildTheHtmlOutput += '<span class="info"> ingredients</span>';
-                buildTheHtmlOutput += '</a>';
+                buildTheHtmlOutput += '</div>';
                 buildTheHtmlOutput += '</div>';
 
-                buildTheHtmlOutput += '<form action="/addfavourites" method="post">';
+                
                 buildTheHtmlOutput += '<div class="addButton">';
                 buildTheHtmlOutput += '<input type="hidden"  name="label" id="label" value="' + recipe.label + '">';
                 buildTheHtmlOutput += '<input type="hidden"  name="userId" id="userId" value="' + currentuser + '">';
                 buildTheHtmlOutput += '<input type="hidden"  name="image" id="image" value="' + recipe.image + '">';
-                buildTheHtmlOutput += '<input type="hidden"  name="url" id="url" value="' + recipe.url + '">';
-                buildTheHtmlOutput += '<button type="submit" class="submit">Add</button>';
-                buildTheHtmlOutput += '</div>';
+                buildTheHtmlOutput += '<form action="' + recipe.url + '">'
+                buildTheHtmlOutput += '<button type="submit"> View recipe </button>'
+                buildTheHtmlOutput += '</form>'
+                buildTheHtmlOutput += '<form action="/addfavourites" method="post">';
+                buildTheHtmlOutput += '<button type="submit" class="submit"> Add to favorites </button>';
                 buildTheHtmlOutput += '</form>';
+                buildTheHtmlOutput += '</div>';
+
                 buildTheHtmlOutput += '</li>';
 
 
