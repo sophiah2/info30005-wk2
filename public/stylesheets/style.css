@@ -1,13 +1,13 @@
 /* Add transparency over light colour to navigation bar */
 .topnav {
-    background-color: rgba(255,255,255,0.5);
+    background-color: #333;
     overflow: hidden;
 }
 
 /* Style the links inside the navigation bar */
 .topnav a {
     float: left;
-    color: #5A5373;
+    color: #f2f2f2;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -16,8 +16,8 @@
 
 /* Change the color of links on hover */
 .topnav a:hover {
-    background-color: #5A5373;
-    color: white;
+    background-color: #ddd;
+    color: black;
 }
 
 /* Add a color to the active/current link */
@@ -42,13 +42,13 @@
 }
 
 .test a.active {
-    background-color: #5A5373;
+    background-color: #4CAF50;
     border-radius: 20px;
     color: white;
 }
 
 a {
-    color: #5A5373;
+    color: #4CAF50;
     text-align: right;
 }
 
