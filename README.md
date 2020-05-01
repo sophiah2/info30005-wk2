@@ -4,7 +4,7 @@
 
 * [TestKitchen on Heroku](https://test-kitchen-app.herokuapp.com)
 
-<br>
+
 ## Features
 
 * A **search** functionality allowing the user to **filter** through a list of dietary and health option to look for food recipes based on their search.
