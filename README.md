@@ -214,7 +214,7 @@ router.get('/displayfavourites', function(req,res){
 
 ```
 
-<br>
+
 #### Controllers
 * adding favourites
  ```addRecipe
