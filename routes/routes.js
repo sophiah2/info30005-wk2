@@ -9,7 +9,6 @@ var Recipe = mongoose.model('recipes');
 var controller = require('../controllers/controllers.js');
 var currentuser;
 
-
 const app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -51,7 +50,7 @@ router.post('/credentials',  function(req, res) {
 
 
 router.get('/displayfavourites', function(req,res){
-    var buildTheHtmlOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link href="css/normalize.css" rel="stylesheet"><link href="css/style.css" rel="stylesheet"></head><body>';
+    var recipeOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link href="css/normalize.css" rel="stylesheet"><link href="css/style.css" rel="stylesheet"></head><body>';
     Recipe.find({userId:currentuser}, function(err, favourite) {
         if (!err) {
             for (var i = 0; i < favourite.length; i++) {
@@ -59,27 +58,25 @@ router.get('/displayfavourites', function(req,res){
                 const label = recipe.label;
                 const image = recipe.image;
                 const url = recipe.url;
-                
-                buildTheHtmlOutput += '<li class="searchRecipeResultOption">';
-                buildTheHtmlOutput += '<div class="object">';
-                buildTheHtmlOutput += '<a class="searchRecipeResultsLink" href="#">';
-                buildTheHtmlOutput += '<span class="searchRecipeImgContainer">';
-                buildTheHtmlOutput += '<img class="searchRecipeImg" src="' + image + '" alt="pastarecipeLink">';
-                buildTheHtmlOutput += '</span>';
-                buildTheHtmlOutput += '</a>';
-                buildTheHtmlOutput += '</div>';
-    
-                buildTheHtmlOutput += '<h3 class="resultsTitle">' + label + '</h3>';
-    
-                buildTheHtmlOutput += '<div class="data">';
-                
-                buildTheHtmlOutput += '<a class="ing" href="#">';
-                buildTheHtmlOutput += '<span class="num">' + recipe.url + '</span><br />';
-                buildTheHtmlOutput += '</a>';
-                buildTheHtmlOutput += '</div>';
+                recipeOutput += '<li class="favouriteResultOption">';
+                recipeOutput += '<div class="object">';
+                recipeOutput += '<a class="favouriteResultsLink" href="#">';
+                recipeOutput += '<span class="favouriteImgContainer">';
+                recipeOutput += '<img class="favouriteImg" src="' + image + '" alt="pastarecipeLink">';
+                recipeOutput += '</span>';
+                recipeOutput += '</a>';
+                recipeOutput += '</div>';
+                recipeOutput += '<h3 class="resultsTitle">' + label + '</h3>';
+                recipeOutput += '<div class="data">';
+                recipeOutput += '<a class="ing" href="#">';
+                recipeOutput += '<form action="' + url + '">';
+                recipeOutput += '<button type="submit"> View recipe </button>';
+                recipeOutput += '</form>';
+                recipeOutput += '</a>';
+                recipeOutput += '</div>';
             }
-            buildTheHtmlOutput+='<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><script src="js/script.js"></script></body></html>';
-            res.send(buildTheHtmlOutput);
+            recipeOutput+='<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><script src="js/script.js"></script></body></html>';
+            res.send(recipeOutput);
         } else {
             res.sendStatus(404);
         }
@@ -109,7 +106,7 @@ router.get('/displayfavourites', function(req,res){
         console.log(ing)
         var qurl="https://api.edamam.com/search?q=" + ing + "&app_id=" + process.env.EDAMOM_ID + "&app_key=" + process.env.EDAMOM_KEY + "&from=" + 0 + "&to=" + 10 + diet + health;
         console.log(qurl);
-        var buildTheHtmlOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link href="css/normalize.css" rel="stylesheet"><link href="css/style.css" rel="stylesheet"></head><body>';
+        var recipeOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link href="css/normalize.css" rel="stylesheet"><link href="css/style.css" rel="stylesheet"></head><body>';
         const res1 = axios.get(qurl);
          const recipes = res1;
 
@@ -121,52 +118,42 @@ router.get('/displayfavourites', function(req,res){
                 const image = recipe.image;
                 const url = recipe.url;
                 const calories = recipe.calories.toFixed(2);
-                buildTheHtmlOutput += '<li class="searchRecipeResultOption">';
-                buildTheHtmlOutput += '<div class="object">';
-                buildTheHtmlOutput += '<a class="searchRecipeResultsLink" href="#">';
-                buildTheHtmlOutput += '<span class="searchRecipeImgContainer">';
-                buildTheHtmlOutput += '<img class="searchRecipeImg" src="' + recipe.image + '" alt="pastarecipeLink">';
-                buildTheHtmlOutput += '</span>';
-                buildTheHtmlOutput += '</a>';
-                buildTheHtmlOutput += '</div>';
+                recipeOutput += '<li class="searchingResultOption">';
+                recipeOutput += '<div class="object">';
+                recipeOutput += '<a class="searchingResultsLink" href="#">';
+                recipeOutput += '<span class="searchingImgContainer">';
+                recipeOutput += '<img class="searchingImg" src="' + image + '" alt="pastarecipeLink">';
+                recipeOutput += '</span>';
+                recipeOutput += '</a>';
+                recipeOutput += '</div>';
 
-                buildTheHtmlOutput += '<h3 class="resultsTitle">' + recipe.label + '</h3>';
+                recipeOutput += '<h3 class="resultsTitle">' + label + '</h3>';
 
-                buildTheHtmlOutput += '<div class="data">';
-                buildTheHtmlOutput += '<a class="cal" href="#">';
-                buildTheHtmlOutput += '<span class="num">' + recipe.calories.toFixed(2) + '</span><br />';
-                buildTheHtmlOutput += '<span class="info"> calories</span><br />';
-                buildTheHtmlOutput += '</a>';
-                buildTheHtmlOutput += '<a class="ing" href="#">';
-                buildTheHtmlOutput += '<span class="num">' + recipe.ingredients.length + '</span><br />';
-                buildTheHtmlOutput += '<span class="num">' + recipe.url + '</span><br />';
-                buildTheHtmlOutput += '<span class="info"> ingredients</span>';
-                buildTheHtmlOutput += '</a>';
-                buildTheHtmlOutput += '</div>';
-
-                buildTheHtmlOutput += '<form action="/addfavourites" method="post">';
-                buildTheHtmlOutput += '<div class="addButton">';
-                buildTheHtmlOutput += '<input type="hidden"  name="label" id="label" value="' + recipe.label + '">';
-                buildTheHtmlOutput += '<input type="hidden"  name="userId" id="userId" value="' + currentuser + '">';
-                buildTheHtmlOutput += '<input type="hidden"  name="image" id="image" value="' + recipe.image + '">';
-                buildTheHtmlOutput += '<input type="hidden"  name="url" id="url" value="' + recipe.url + '">';
-                buildTheHtmlOutput += '<button type="submit" class="submit">Add</button>';
-                buildTheHtmlOutput += '</div>';
-                buildTheHtmlOutput += '</form>';
-                buildTheHtmlOutput += '</li>';
-
-
-                console.log("recipes: ", recipe.label);
-                console.log("label: ", label);
-                console.log("label: ", image);
-                console.log("label: ", url);
-                console.log("label: ", calories);
+                recipeOutput += '<div class="data">';
+                recipeOutput += '<div class="cal" href="#">';
+                recipeOutput += '<span class="info"> Calories: </span>';
+                recipeOutput += '<span class="num">' + recipe.calories.toFixed(2) + '</span><br />';
+                recipeOutput += '</div>';
+                recipeOutput += '</div>';
+                recipeOutput += '<form action="/addfavourites" method="post">';
+                recipeOutput += '<div class="addButton">';
+                recipeOutput += '<input type="hidden"  name="label" id="label" value="' + label + '">';
+                recipeOutput += '<input type="hidden"  name="userId" id="userId" value="' + currentuser + '">';
+                recipeOutput += '<input type="hidden"  name="image" id="image" value="' + image + '">';
+                recipeOutput += '<input type="hidden"  name="url" id="url" value="' + url + '">';
+                recipeOutput += '<button type="submit" class="submit"> Add to favorites </button>';
+                recipeOutput += '</div>';
+                recipeOutput += '</form>';
+                recipeOutput += '<form action="' + url + '">'
+                recipeOutput += '<button type="submit"> View recipe </button>'
+                recipeOutput += '</form>'
+                recipeOutput += '</li>';
 
 
             }
-            buildTheHtmlOutput+='<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><script src="js/script.js"></script></body></html>'
+            recipeOutput+='<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><script src="js/script.js"></script></body></html>'
             console.log(currentuser)
-            res.send(buildTheHtmlOutput);
+            res.send(recipeOutput);
 
          });
 
@@ -181,14 +168,7 @@ router.get('/favourites', controller.findAllfav);
 router.get('/favourites/userid/:userid', controller.findfavById);
 router.post('/users', controller.createUser);
 router.get('/users', controller.findAllUsers);
-
-// Find one user by id
 router.get('/users/id/:id', controller.findOneUser);
-
-//Find one user by name
 router.get('/users/name/:name', controller.findUserByName);
-
-
-
 
 module.exports = router;
