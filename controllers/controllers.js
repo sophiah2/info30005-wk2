@@ -81,7 +81,7 @@ var deleteUserById = function(req, res) {
 
 var  addRecipe = function(req, res){
 
-    console.log(req.body.label);
+    console.log(req.body.userId);
     var recipe = new Recipe({
     "userId":req.body.userId,
     "label":req.body.label,
@@ -91,7 +91,7 @@ var  addRecipe = function(req, res){
     
     recipe.save(function(err, newfav) {
         if (!err) {
-            res.send(newfav);
+            res.sendfile("addsuccess.html");
         } else {
             res.sendStatus(400);
         }

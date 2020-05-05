@@ -1,4 +1,4 @@
-/* Add a black background color to the top navigation */
+/* Add transparency over light colour to navigation bar */
 .topnav {
     background-color: #333;
     overflow: hidden;
@@ -22,7 +22,7 @@
 
 /* Add a color to the active/current link */
 .topnav a.active {
-    background-color: #4CAF50;
+    background-color: #5A5373;
     color: white;
 }
 
@@ -41,12 +41,47 @@
     font-size: 17px;
 }
 
-
-
 .test a.active {
     background-color: #4CAF50;
     border-radius: 20px;
     color: white;
 }
 
+a {
+    color: #4CAF50;
+    text-align: right;
+}
 
+a:link, a:visited {
+    color: #5A5373;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+
+}
+
+body, html {
+    height: 100%;
+}
+
+/* Right-aligned section inside the top navigation */
+.topnav-right {
+    float: right;
+}
+
+/* Style the search box inside the navigation bar */
+.topnav input[type=text] {
+    float: right;
+    padding: 6px;
+    border: none;
+    margin-top: 8px;
+    margin-right: 16px;
+    font-size: 17px;
+}
+
+.test a.active {
+    background-color: #4CAF50;
+    border-radius: 20px;
+    color: white;
+}
