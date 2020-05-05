@@ -3,17 +3,26 @@ var express = require('express');
 var mongoose = require('mongoose');
 process.env.EDAMOM_ID="718c5205";
 process.env.EDAMOM_KEY="ba10effb18afdc98b4750044768b3889";
-router = express.Router();
+var router = express.Router();
 var User = mongoose.model('users');
 var Recipe = mongoose.model('recipes');
 var controller = require('../controllers/controllers.js');
 var currentuser;
-
+const { check, validationResult } = require('express-validator');
 
 const app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
+/* home page */
+router.get('/', (req, res) => {
+
+    if (req.session.email){
+        req.redirect("welcome.ejs");
+    } else {
+        res.render("index.ejs");
+    }
+});
 
 router.get('/signup', function (req, res) {
     res.sendfile("signup.html");
@@ -27,25 +36,50 @@ router.get('/searchpage', function (req, res) {
 
 
 });
-router.get('/login', function(req,res){
-    res.sendfile("login.html");
+
+router.get('/logout', function (req, res) {
+
+    req.session.destroy();
+    res.redirect('/');
 
 });
 
-router.post('/credentials',  function(req, res) {
-    var userEmail = req.body.email;
-    var userPassword= req.body.password;
-    console.log(userEmail);
+
+router.get('/login', function(req,res){
+
+    res.sendfile("login.html", {success: false, errors: req.session.errors});
+    req.session.errors = null;
+
+});
+
+router.post('/credentials', [
+    check('email').isEmail(),
+    check('password').isLength({ min: 3 })
+],  function(req, res) {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()){
+        return res.status(422).json({ errors: errors.array() })
+
+    }
+
+    const userEmail = req.body.email;
+    const userPassword = req.body.password;
+
     User.findOne({email:userEmail,password:userPassword}, function(err,user) {
         if (!err  && user!=null) {
             currentuser=user._id;
-
-            res.sendfile("search.html");
+            req.session.email = userEmail;
+            req.session.password = userPassword;
+            res.render("welcome.ejs",{
+                email:req.session.email
+            });
         } else {
-            res.sendfile("login.html");
+            res.write("Please Login");
 
         }
     });
+
 });
 
 
@@ -59,7 +93,7 @@ router.get('/displayfavourites', function(req,res){
                 const label = recipe.label;
                 const image = recipe.image;
                 const url = recipe.url;
-                
+
                 buildTheHtmlOutput += '<li class="searchRecipeResultOption">';
                 buildTheHtmlOutput += '<div class="object">';
                 buildTheHtmlOutput += '<a class="searchRecipeResultsLink" href="#">';
@@ -68,11 +102,11 @@ router.get('/displayfavourites', function(req,res){
                 buildTheHtmlOutput += '</span>';
                 buildTheHtmlOutput += '</a>';
                 buildTheHtmlOutput += '</div>';
-    
+
                 buildTheHtmlOutput += '<h3 class="resultsTitle">' + label + '</h3>';
-    
+
                 buildTheHtmlOutput += '<div class="data">';
-                
+
                 buildTheHtmlOutput += '<a class="ing" href="#">';
                 buildTheHtmlOutput += '<span class="num">' + recipe.url + '</span><br />';
                 buildTheHtmlOutput += '</a>';
@@ -84,8 +118,8 @@ router.get('/displayfavourites', function(req,res){
             res.sendStatus(404);
         }
     })
-    
-    
+
+
 
 });
 
