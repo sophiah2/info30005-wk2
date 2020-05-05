@@ -6,25 +6,30 @@
   <link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css"/>
   <style>
     body {font-family: Arial, Helvetica, sans-serif;}
-    form {border: 3px solid #f1f1f1;}
+
 
     input[type=text], input[type=password] {
-      width: 100%;
-      padding: 12px 20px;
+      width: 30%;
+      padding: 15px 5px;
       margin: 8px 0;
       display: inline-block;
       border: 1px solid #ccc;
+      border-color: white;
       box-sizing: border-box;
+      background-color: #F0F0F0;
     }
 
     button {
-      background-color: #4CAF50;
-      color: white;
-      padding: 14px 20px;
-      margin: 8px 0;
-      border: none;
-      cursor: pointer;
-      width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 17px;
+        border-radius: 15px;
+        padding: 10px 5px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 10%;
+
     }
 
     button:hover {
@@ -37,23 +42,13 @@
       background-color: #f44336;
     }
 
-    .imgcontainer {
-      text-align: center;
-      margin: 24px 0 12px 0;
-    }
-
-    img.avatar {
-      width: 40%;
-      border-radius: 50%;
-    }
-
-    .container {
-      padding: 16px;
-    }
-
     span.psw {
-      float: right;
+      float: left;
       padding-top: 16px;
+    }
+
+    h2 {
+        text-align: center;
     }
 
     /* Change styles for span and cancel button on extra small screens */
@@ -70,30 +65,33 @@
 </head>
 <div class="topnav">
   <div class="topnav">
-    <a class="active" href="/">Home</a>
-    <a href="/login">Login</a>
+    <a href="/">Home</a>
+    <a class="active" href="/login">Login</a>
     <a href="/signup">Signup</a>
 
   </div>
 </div>
 <body>
   <h2>Login to your account</h2>
-
+<div class = "form">
   <form action="/credentials" method="post">
 
     <div class="container" >
-      <label for="email"><b>E-mail</b></label>
+      <!--<label for="email"><b>E-mail</b></label><br>-->
       <input type="text" name="email" id="email"
-      placeholder="Enter E-Mail" required>
+      placeholder="Email" required><br>
 
-      <label for="password"><b>Password</b></label>
+      <!--<label for="password"><b>Password</b></label><br>-->
       <input type="password" name="password"
-      id="password" placeholder="Enter Password" required>
+      id="password" placeholder="Password" required><br>
 
-      <input type="submit" id="submitDetails"
-      name="submitDetails" value="Submit">
+      <button type="submit">Continue</button>
     </div>
+
+
+
   </form>
+   </div>
 </body>
 </html>
 
