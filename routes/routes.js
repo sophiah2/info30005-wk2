@@ -7,7 +7,7 @@ var router = express.Router();
 var User = mongoose.model('users');
 var Recipe = mongoose.model('recipes');
 var controller = require('../controllers/controllers.js');
-var currentuser;
+
 const { check, validationResult } = require('express-validator');
 
 const app = express();
@@ -31,6 +31,7 @@ router.get('/signup', function (req, res) {
 });
 
 router.get('/searchpage', function (req, res) {
+    
 
     res.sendfile("search.html");
 
@@ -68,7 +69,7 @@ router.post('/credentials', [
 
     User.findOne({email:userEmail,password:userPassword}, function(err,user) {
         if (!err  && user!=null) {
-            currentuser=user._id;
+            
             req.session.email = userEmail;
             req.session.password = userPassword;
             res.render("welcome.ejs",{
@@ -85,8 +86,17 @@ router.post('/credentials', [
 
 
 router.get('/displayfavourites', function(req,res){
+    var k;
+    User.findOne({email:req.session.email}, function(err,user) {
+        
+        
+        k=user._id;
+        console.log(k);
+      
     var recipeOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link href="css/normalize.css" rel="stylesheet"><link href="css/style.css" rel="stylesheet"></head><body>';
-    Recipe.find({userId:currentuser}, function(err, favourite) {
+    
+    Recipe.find({userId:k}, function(err, favourite) {
+        
         if (!err) {
             for (var i = 0; i < favourite.length; i++) {
                 var recipe = favourite[i];
@@ -117,7 +127,7 @@ router.get('/displayfavourites', function(req,res){
         }
     })
 
-
+});
 
 });
 
@@ -173,7 +183,7 @@ router.get('/displayfavourites', function(req,res){
                 recipeOutput += '<form action="/addfavourites" method="post">';
                 recipeOutput += '<div class="addButton">';
                 recipeOutput += '<input type="hidden"  name="label" id="label" value="' + label + '">';
-                recipeOutput += '<input type="hidden"  name="userId" id="userId" value="' + currentuser + '">';
+                recipeOutput += '<input type="hidden"  name="userId" id="userId" value="' + req.session._id + '">';
                 recipeOutput += '<input type="hidden"  name="image" id="image" value="' + image + '">';
                 recipeOutput += '<input type="hidden"  name="url" id="url" value="' + url + '">';
                 recipeOutput += '<button type="submit" class="submit"> Add to favorites </button>';
@@ -187,7 +197,7 @@ router.get('/displayfavourites', function(req,res){
 
             }
             recipeOutput+='<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><script src="js/script.js"></script></body></html>'
-            console.log(currentuser)
+            console.log(req.session._id)
             res.send(recipeOutput);
 
          });
