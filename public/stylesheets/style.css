@@ -1,8 +1,12 @@
 /* Add transparency over light colour to navigation bar */
 .topnav {
     background-color: #5A5373;
+
     overflow: hidden;
+
 }
+
+body {font-family: Arial, Helvetica, sans-serif;}
 
 /* Style the links inside the navigation bar */
 .topnav a {
@@ -87,6 +91,7 @@ body, html {
     color: white;
 }
 
+/* centre the forms */
 div.form {
     display: block;
     text-align: center;
