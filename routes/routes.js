@@ -134,6 +134,11 @@ router.get('/displayfavourites', function(req,res){
 
 
     router.get('/search', function (req, res) {
+        User.findOne({email:req.session.email}, function(err,user) {
+        
+        
+            k=user._id;
+            console.log(k);
 
         var ing=req.query.Recipe_Search;
         var diet="&diet=";
@@ -183,7 +188,7 @@ router.get('/displayfavourites', function(req,res){
                 recipeOutput += '<form action="/addfavourites" method="post">';
                 recipeOutput += '<div class="addButton">';
                 recipeOutput += '<input type="hidden"  name="label" id="label" value="' + label + '">';
-                recipeOutput += '<input type="hidden"  name="userId" id="userId" value="' + req.session._id + '">';
+                recipeOutput += '<input type="hidden"  name="userId" id="userId" value="' + k + '">';
                 recipeOutput += '<input type="hidden"  name="image" id="image" value="' + image + '">';
                 recipeOutput += '<input type="hidden"  name="url" id="url" value="' + url + '">';
                 recipeOutput += '<button type="submit" class="submit"> Add to favorites </button>';
@@ -197,15 +202,14 @@ router.get('/displayfavourites', function(req,res){
 
             }
             recipeOutput+='<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><script src="js/script.js"></script></body></html>'
-            console.log(req.session._id)
+            
             res.send(recipeOutput);
 
          });
 
-
-
         });
 
+        });
 
 
 router.post('/addfavourites',controller.addRecipe);
