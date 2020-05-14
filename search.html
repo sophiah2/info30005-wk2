@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html> 
 <head> 
-    <title> Signup Form</title> 
+    <title> Search Page</title> 
           
           
 <link rel="stylesheet" 
@@ -11,15 +11,114 @@ integrity=
 "sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
 crossorigin="anonymous">     
           
-<link rel="stylesheet" type="text/css" href="style.css"> 
-          
+<link rel="stylesheet" type="text/css" href="public/stylesheets/style.css">
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+
+        form {
+            float: center;
+        }
+
+        div.container {
+            float: center;
+            text-align: left;
+            box-sizing: border-box;
+            width: 35%;
+
+        }
+
+        input[type=Recipe_Search] {
+            width: 100%;
+            padding: 15px 10px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-color: white;
+            box-sizing: border-box;
+            background-color: #F0F0F0;
+        }
+        h1 {
+            font-size: 60px;
+            color: #5A5373;
+            text-align: center;
+            position: relative;
+        }
+        p {
+            font-size: 15px;
+            text-align: left;
+            position: relative;
+        }
+        div.search {
+            padding-top: 100px;
+            max-width: 500px;
+            margin:auto;
+        }
+        button {
+            background-color: #706890;
+            color: white;
+            font-size: 17px;
+            border-radius: 15px;
+            padding: 10px 5px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+          opacity: 0.8;
+        }
+        select {
+            background-color: #F0F0F0;
+            border-color: white;
+        }
+
+    </style>        
 </head> 
+<div class="topnav">
+    <div class="topnav">
+      <a href="/">Home</a>
+      <a href="/displayfavourites">Favourites</a>
+      <a href="/logout">Log out</a>
+    </div>
+  </div>
 <body> 
-      
+    <div class = "search">
+        <h1> Start searching </h1>
+    </div>
+    <br>
+    <div class="container" >
+        <form action="/search" method="get">
+        <div class = "form">
+            <input class="box" type="Recipe_Search" name="Recipe_Search" id="Recipe_Search"
+            placeholder="what have we got?"  required /><br><br>
+        </div>      
+        <p> Any dietary requirements we should know about? </p>
+
+        <select id="health_id" name="health">
+            <option value="none">None</option>
+            <option value="vegan">Vegan</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="sugar-conscious">Low sugar</option>
+            <option value="peanut-free">Peanut free</option>
+            <option value="tree-nut-free">Tree nut free</option>
+            <option value="alcohol-free">Alcohol free</option>
+        </select>
     <br> 
     <br> 
+    <p> Any other specifications we should look for? </p>
+    <select id="diet_id" name="diet">
+        <option value="none">None</option>
+        <option value="balanced">Balanced</option>
+        <option value="high-protein">High protein</option>
+        <option value="low-fat">Low fat</option>
+        <option value="low-carb">Low carb</option>
+    </select>
+    <br><br>
+    <button type="submit">Let's get cooking!</button>
     <br> 
-    <div class="container" > 
+</form>
+</div>
+<!--<div class="container" >      
         <div class="row"> 
         <div class="col-md-3"> 
                       
@@ -71,10 +170,8 @@ crossorigin="anonymous">
         </div>
         <div class="col-md-3"> 
         </div> 
-                  
-    </div> 
-    </div> 
-    <script>
-    </script>
+                  </div>
+    </div>-->
+   
 </body> 
 </html>
