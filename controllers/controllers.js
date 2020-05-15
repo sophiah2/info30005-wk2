@@ -91,7 +91,9 @@ var  addRecipe = function(req, res){
     
     recipe.save(function(err, newfav) {
         if (!err) {
-            res.sendfile("addsuccess.html");
+            //res.sendFile("addsuccess.html");
+            //res.send('<script>alert("Added to favorites!")</script>');
+            res.sendStatus(200);
         } else {
             res.sendStatus(400);
         }

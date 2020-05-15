@@ -190,13 +190,20 @@ router.get('/displayfavourites', function(req,res){
                 recipeOutput += '<span class="num">' + recipe.calories.toFixed(2) + '</span><br />';
                 recipeOutput += '</div>';
                 recipeOutput += '</div>';
-                recipeOutput += '<form action="/addfavourites" method="post">';
+
+                recipeOutput += '<script>';
+                recipeOutput += 'function successAlert(){';
+                recipeOutput += 'alert("Successfully added to favorites!");}';
+                recipeOutput += '</script>';
+
+                recipeOutput += '<form action="/addfavourites" method="post" onsubmit="successAlert()">';
                 recipeOutput += '<div class="addButton">';
                 recipeOutput += '<input type="hidden"  name="label" id="label" value="' + label + '">';
                 recipeOutput += '<input type="hidden"  name="userId" id="userId" value="' + k + '">';
                 recipeOutput += '<input type="hidden"  name="image" id="image" value="' + image + '">';
                 recipeOutput += '<input type="hidden"  name="url" id="url" value="' + url + '">';
                 recipeOutput += '<button type="submit" class="submit"> Add to favorites </button>';
+
                 recipeOutput += '</div>';
                 recipeOutput += '</form>';
                 recipeOutput += '<form action="' + url + '">'
