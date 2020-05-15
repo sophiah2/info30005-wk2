@@ -19,7 +19,8 @@ router.get('/', (req, res) => {
 
     if (req.session.email){
         res.render("search.ejs",{
-            email:req.session.email
+            name:req.session.name
+
 
         }
         );
@@ -96,7 +97,7 @@ router.get('/displayfavourites', function(req,res){
         k=user._id;
         console.log(k);
       
-    var recipeOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link href="css/normalize.css" rel="stylesheet"><link href="css/style.css" rel="stylesheet"></head><body>';
+    var recipeOutput = '<!DOCTYPE html><html><head></head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css"/></head><div class="topnav"><div class="topnav"><a href="/">Home</a><a class="active" href="/displayfavourites">Favourites</a><a href="/logout">Log out</a></div></div><body>';
     
     Recipe.find({userId:k}, function(err, favourite) {
         
@@ -124,6 +125,7 @@ router.get('/displayfavourites', function(req,res){
                 recipeOutput += '</div>';
             }
             recipeOutput+='<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><script src="js/script.js"></script></body></html>';
+            console.log(recipeOutput);
             res.send(recipeOutput);
         } else {
             res.sendStatus(404);
@@ -159,7 +161,7 @@ router.get('/displayfavourites', function(req,res){
         console.log(ing)
         var qurl="https://api.edamam.com/search?q=" + ing + "&app_id=" + process.env.EDAMOM_ID + "&app_key=" + process.env.EDAMOM_KEY + "&from=" + 0 + "&to=" + 10 + diet + health;
         console.log(qurl);
-        var recipeOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link href="css/normalize.css" rel="stylesheet"><link href="css/style.css" rel="stylesheet"></head><body>';
+        var recipeOutput = '<!DOCTYPE html><html><head></head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css"/></head><div class="topnav"><div class="topnav"><a href="/">Home</a><a href="/displayfavourites">Favourites</a><a href="/logout">Log out</a></div></div><body>';
         const res1 = axios.get(qurl);
          const recipes = res1;
 
@@ -171,11 +173,11 @@ router.get('/displayfavourites', function(req,res){
                 const image = recipe.image;
                 const url = recipe.url;
                 const calories = recipe.calories.toFixed(2);
-                recipeOutput += '<li class="searchingResultOption">';
+                recipeOutput += '<li class="favouriteResultOption">';
                 recipeOutput += '<div class="object">';
-                recipeOutput += '<a class="searchingResultsLink" href="#">';
-                recipeOutput += '<span class="searchingImgContainer">';
-                recipeOutput += '<img class="searchingImg" src="' + image + '" alt="pastarecipeLink">';
+                recipeOutput += '<a class="favouriteResultsLink" href="#">';
+                recipeOutput += '<span class="favouriteImgContainer">';
+                recipeOutput += '<img class="favouriteImg" src="' + image + '" alt="recipeLink">';
                 recipeOutput += '</span>';
                 recipeOutput += '</a>';
                 recipeOutput += '</div>';
@@ -205,7 +207,7 @@ router.get('/displayfavourites', function(req,res){
 
             }
             recipeOutput+='<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><script src="js/script.js"></script></body></html>'
-            
+            console.log(recipeOutput);
             res.send(recipeOutput);
 
          });
