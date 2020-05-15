@@ -18,7 +18,11 @@ app.use(bodyParser.json());
 router.get('/', (req, res) => {
 
     if (req.session.email){
-        res.sendfile("search.html");
+        res.render("search.ejs",{
+            email:req.session.email
+
+        }
+        );
     } else {
         res.render("index.ejs");
     }
@@ -30,13 +34,7 @@ router.get('/signup', function (req, res) {
 
 });
 
-router.get('/searchpage', function (req, res) {
-    
 
-    res.sendfile("search.html");
-
-
-});
 
 router.get('/logout', function (req, res) {
 
@@ -72,7 +70,14 @@ router.post('/credentials', [
             
             req.session.email = userEmail;
             req.session.password = userPassword;
-            res.sendfile("search.html");
+            req.session.name= user.name;
+            res.render("search.ejs",{
+                name:req.session.name
+                
+
+
+            }
+            );
         } else {
             res.write("Please Login");
 

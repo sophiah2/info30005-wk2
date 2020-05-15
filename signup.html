@@ -68,10 +68,24 @@
 
     </div>
 </div>
+<script>
+    function validate()
+    {
+        var pwd = document.getElementById("password").value;
+        var cfmpwd = document.getElementById("cfmpassword").value;
+
+        if (pwd != cfmpwd)
+        {
+            alert("Password and confirm password must match");
+            return false;
+        }
+        return true;
+    }
+</script>
 <body>
     <h2> Create Account </h2>
     <div class ="form">
-    <form action="/users" method="post">
+    <form action="/users" method="post" onsubmit="return validate()">
 
     <div class="container" >
             <!--<label for="name"><b>Name</b></label><br>-->
@@ -85,6 +99,9 @@
             <!--<label for="name"><b>Password</b></label><br>-->
             <input type="password" name="password"
             id="password" placeholder="Password " required><br>
+
+            <input type="password" name="cfmpassword"
+            id="cfmpassword" placeholder="Re-enter Password " required><br>
 
              <button type="submit">Continue</button>
     </div>
