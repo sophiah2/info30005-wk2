@@ -95,7 +95,7 @@ router.get('/displayfavourites', function(req,res){
         
         
         k=user._id;
-        console.log(k);
+        
       
     var recipeOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css"/></head><div class="topnav"><div class="topnav"><a href="/">Home</a><a class="active" href="/displayfavourites">Favourites</a><a href="/logout">Log out</a></div></div><body>';
     
@@ -117,15 +117,13 @@ router.get('/displayfavourites', function(req,res){
                 recipeOutput += '</div>';
                 recipeOutput += '<h3 class="resultsTitle">' + label + '</h3>';
                 recipeOutput += '<div class="data">';
-                recipeOutput += '<a class="ing" href="#">';
-                recipeOutput += '<form action="' + url + '">';
+                recipeOutput += '<form action="' + url + '" target="_blank">';
                 recipeOutput += '<button type="submit"> View recipe </button>';
                 recipeOutput += '</form>';
-                recipeOutput += '</a>';
                 recipeOutput += '</div>';
             }
             recipeOutput+='<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><script src="js/script.js"></script></body></html>';
-            console.log(recipeOutput);
+           
             res.send(recipeOutput);
         } else {
             res.sendStatus(404);
@@ -143,7 +141,7 @@ router.get('/displayfavourites', function(req,res){
         
         
             k=user._id;
-            console.log(k);
+            
 
         var ing=req.query.Recipe_Search;
         var diet="&diet=";
@@ -158,7 +156,7 @@ router.get('/displayfavourites', function(req,res){
         } else {
             health = health + req.query.health;
         }
-        console.log(ing)
+        
         var qurl="https://api.edamam.com/search?q=" + ing + "&app_id=" + process.env.EDAMOM_ID + "&app_key=" + process.env.EDAMOM_KEY + "&from=" + 0 + "&to=" + 10 + diet + health;
         console.log(qurl);
         var recipeOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css"/></head><div class="topnav"><div class="topnav"><a href="/">Home</a><a href="/displayfavourites">Favourites</a><a href="/logout">Log out</a></div></div><body>';
@@ -214,7 +212,7 @@ router.get('/displayfavourites', function(req,res){
 
             }
             recipeOutput+='<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><script src="js/script.js"></script></body></html>'
-            console.log(recipeOutput);
+            
             res.send(recipeOutput);
 
          });
