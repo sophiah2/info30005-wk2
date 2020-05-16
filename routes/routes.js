@@ -204,7 +204,7 @@ router.get('/displayfavourites', function(req,res){
 
                 recipeOutput += '</div>';
                 recipeOutput += '</form>';
-                recipeOutput += '<form action="' + url + '">'
+                recipeOutput += '<form action="' + url + '" target="_blank">'
                 recipeOutput += '<button type="submit"> View recipe </button>'
                 recipeOutput += '</form>'
                 recipeOutput += '</li>';
