@@ -1,8 +1,12 @@
-#Test-Kitchen
+# Test-Kitchen
+<br>
 ## :rice:Hungry? get searching!:dumpling:
 <br>
 
 * [TestKitchen on Heroku](https://test-kitchen-app.herokuapp.com)
+<br>
+* Not knowing what to cook for dinner is a problem faced by all kinds of people. Often, we have limited ingredients at hand and not much time to run to the shops. Or, sometimes we have many ingredients, but cannot decide on which to cook with. Or, even more common, we are overwhelmed at the sheer magnitude of recipe options on the internet. In all these scenarios, having a platform to get quick and handy recipe suggestions would be a welcome improvement to the current format of manually browsing the web. Furthermore, in a time where there is a startling amount of food wastage, having a solution that thinks of creative ways to combat this is of importance. 
+
 
 
 ## Features
