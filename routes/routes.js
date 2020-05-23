@@ -68,19 +68,20 @@ router.post('/credentials', [
 
     User.findOne({email:userEmail,password:userPassword}, function(err,user) {
         if (!err  && user!=null) {
-            
+
             req.session.email = userEmail;
             req.session.password = userPassword;
             req.session.name= user.name;
             res.render("search.ejs",{
                 name:req.session.name
-                
+
 
 
             }
             );
         } else {
             res.write("Please Login");
+            res.end();
 
         }
     });
@@ -92,15 +93,15 @@ router.post('/credentials', [
 router.get('/displayfavourites', function(req,res){
     var k;
     User.findOne({email:req.session.email}, function(err,user) {
-        
-        
+
+
         k=user._id;
-        
-      
+
+
     var recipeOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css"/></head><div class="topnav"><div class="topnav"><a href="/">Home</a><a class="active" href="/displayfavourites">Favourites</a><a href="/logout">Log out</a></div></div><body>';
-    
+
     Recipe.find({userId:k}, function(err, favourite) {
-        
+
         if (!err) {
             for (var i = 0; i < favourite.length; i++) {
                 var recipe = favourite[i];
@@ -123,7 +124,7 @@ router.get('/displayfavourites', function(req,res){
                 recipeOutput += '</div>';
             }
             recipeOutput+='<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><script src="js/script.js"></script></body></html>';
-           
+
             res.send(recipeOutput);
         } else {
             res.sendStatus(404);
@@ -138,10 +139,10 @@ router.get('/displayfavourites', function(req,res){
 
     router.get('/search', function (req, res) {
         User.findOne({email:req.session.email}, function(err,user) {
-        
-        
+
+
             k=user._id;
-            
+
 
         var ing=req.query.Recipe_Search;
         var diet="&diet=";
@@ -156,7 +157,7 @@ router.get('/displayfavourites', function(req,res){
         } else {
             health = health + req.query.health;
         }
-        
+
         var qurl="https://api.edamam.com/search?q=" + ing + "&app_id=" + process.env.EDAMOM_ID + "&app_key=" + process.env.EDAMOM_KEY + "&from=" + 0 + "&to=" + 10 + diet + health;
         console.log(qurl);
         var recipeOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css"/></head><div class="topnav"><div class="topnav"><a href="/">Home</a><a href="/displayfavourites">Favourites</a><a href="/logout">Log out</a></div></div><body>';
@@ -212,7 +213,7 @@ router.get('/displayfavourites', function(req,res){
 
             }
             recipeOutput+='<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><script src="js/script.js"></script></body></html>'
-            
+
             res.send(recipeOutput);
 
          });
