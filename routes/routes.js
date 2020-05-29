@@ -80,8 +80,7 @@ router.post('/credentials', [
             }
             );
         } else {
-            res.write("Please Login");
-            res.end();
+            res.send("Please Login");
 
         }
     });
