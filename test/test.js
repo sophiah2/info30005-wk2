@@ -5,13 +5,41 @@ const { expect } = chai;
 
 const app = require('../server');
 
-describe('Functional Test - Login', function() {
+describe('Unit Test - Validation', function() {
 
-    it('Should return error 422 if user email and password are empty', function(done) {
+    it('Should return "Invalid email address" if user email is invalid', function(done) {
         request(app)
             .post('/credentials')
-            .send({})
-            .expect(422)
+            .send({email: '123123.com', password: '111'})
+            .expect("Invalid email address\n")
+            .end(done);
+    });
+
+    it('Should return "Password must be at least 3 chars long" if password is less than 3 chars', function(done) {
+        request(app)
+            .post('/credentials')
+            .send({email: '123@123.com', password: '11'})
+            .expect("Password must be at least 3 chars long\n")
+            .end(done);
+    });
+
+    it('Should return "Invalid email address and Password must be at least 3 chars long" if user email is invalid and password is less than 3 chars', function(done) {
+        request(app)
+            .post('/credentials')
+            .send({email: '123123.com', password: '11'})
+            .expect("Invalid email address\nPassword must be at least 3 chars long\n")
+            .end(done);
+    });
+
+});
+
+describe('Functional Test - Login', function() {
+
+    it('Should return "User does not exit" if user email or password does not exit', function(done) {
+        request(app)
+            .post('/credentials')
+            .send({email: '123@123.com', password: '111'})
+            .expect("User does not exit")
             .end(done);
     });
 
@@ -22,4 +50,5 @@ describe('Functional Test - Login', function() {
             .expect(200)
             .end(done);
     });
+
 });

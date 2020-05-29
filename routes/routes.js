@@ -53,13 +53,22 @@ router.get('/login', function(req,res){
 });
 
 router.post('/credentials', [
-    check('email').isEmail(),
-    check('password').isLength({ min: 3 })
+    check('email').isEmail().withMessage("Invalid email address"),
+    check('password').isLength({ min: 3 }).withMessage("Password must be at least 3 chars long")
 ],  function(req, res) {
 
     const errors = validationResult(req);
+
     if (!errors.isEmpty()){
-        return res.status(422).json({ errors: errors.array() })
+
+        let errorMessage = []
+        errors.array().map(err => errorMessage.push( err.msg ));
+
+        errorMessage.map(msg => res.write(msg + "\n"));
+        res.end();
+        return;
+
+        //return res.status(422).json({ errors: errors.array()})
 
     }
 
@@ -69,18 +78,15 @@ router.post('/credentials', [
     User.findOne({email:userEmail,password:userPassword}, function(err,user) {
         if (!err  && user!=null) {
 
-            req.session.email = userEmail;
-            req.session.password = userPassword;
+            req.session.email = user.email;
+            req.session.password = user.password;
             req.session.name= user.name;
             res.render("search.ejs",{
                 name:req.session.name
-
-
-
             }
             );
         } else {
-            res.send("Please Login");
+            res.send("User does not exit");
 
         }
     });
