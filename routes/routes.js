@@ -20,10 +20,7 @@ router.get('/', (req, res) => {
     if (req.session.email){
         res.render("search.ejs",{
             name:req.session.name
-
-
-        }
-        );
+        });
     } else {
         res.render("index.ejs");
     }
@@ -81,10 +78,9 @@ router.post('/credentials', [
             req.session.email = user.email;
             req.session.password = user.password;
             req.session.name= user.name;
-            res.render("search.ejs",{
-                name:req.session.name
-            }
-            );
+
+            res.redirect("/search");
+
         } else {
             res.send("User does not exit");
 
@@ -93,7 +89,17 @@ router.post('/credentials', [
 
 });
 
+router.get('/search', function(req,res){
 
+    if (req.session.name){
+        res.render("search.ejs",{
+                name:req.session.name
+            }
+        );
+    } else {
+        res.send("Please login");
+    }
+})
 
 router.get('/displayfavourites', function(req,res){
     var k;

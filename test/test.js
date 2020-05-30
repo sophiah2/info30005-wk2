@@ -1,11 +1,13 @@
 // unit, integration and functional tests
-const request = require('supertest');
-const chai = require('chai');
-const { expect } = chai;
+var request = require('supertest');
+
+var chai = require('chai')
+var expect = chai.expect;
+chai.use(require('chai-http'));
 
 const app = require('../server');
 
-describe('Unit Test - Validation', function() {
+describe('Unit Test - Input Validation', function() {
 
     it('Should return "Invalid email address" if user email is invalid', function(done) {
         request(app)
@@ -33,7 +35,7 @@ describe('Unit Test - Validation', function() {
 
 });
 
-describe('Functional Test - Login', function() {
+describe('Functional Test - User Login', function() {
 
     it('Should return "User does not exit" if user email or password does not exit', function(done) {
         request(app)
