@@ -49,7 +49,7 @@ describe('Functional Test - User Login', function() {
         request(app)
             .post('/credentials')
             .send({ email: '123@123.com', password: '123' })
-            .expect(200)
+            .expect(302)
             .end(done);
     });
 
