@@ -79,7 +79,7 @@ router.post('/credentials', [
             req.session.password = user.password;
             req.session.name= user.name;
 
-            res.redirect("/search1");
+            res.redirect("/homepage");
 
         } else {
             res.send("User does not exit");
@@ -89,7 +89,7 @@ router.post('/credentials', [
 
 });
 
-router.get('/search1', function(req,res){
+router.get('/homepage', function(req,res){
 
     if (req.session.name){
         res.render("search.ejs",{
