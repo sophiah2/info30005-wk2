@@ -188,7 +188,7 @@ router.get('/displayfavourites', function(req,res){
         var recipeOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css"/></head><div class="topnav"><div class="topnav"><a href="/">Home</a><a href="/displayfavourites">Favourites</a><a href="/logout">Log out</a></div></div><body>';
         const res1 = axios.get(qurl);
          const recipes = res1;
-        console.log(recipes);
+        
         recipes.then(function(result) {
             recipeResults=result.data; // "Some User token"
             
@@ -198,12 +198,20 @@ router.get('/displayfavourites', function(req,res){
                 
             }
             else{
-            for (i = 0; i < 19; i++) {
+                if(recipeResults.count<19)
+                {
+                    counter=recipeResults.count-1;
+                }
+                else {
+                    counter=19;
+                }
+            for (i = 0; i < counter; i++) {
                 const recipe = recipeResults.hits[i].recipe;
                 const label = recipe.label;
                 const image = recipe.image;
                 const url = recipe.url;
                 const calories = recipe.calories.toFixed(2);
+                
                 recipeOutput += '<li class="favouriteResultOption">';
                 recipeOutput += '<div class="object">';
                 recipeOutput += '<a class="favouriteResultsLink" href="#">';
