@@ -103,12 +103,14 @@ router.get('/homepage', function(req,res){
 })
 
 router.get('/displayfavourites', function(req,res){
-    var k;
+
+    if (req.session.name){
+        var k;
     User.findOne({email:req.session.email}, function(err,user) {
 
 
         k=user._id;
-
+    
 
     var recipeOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css"/></head><div class="topnav"><div class="topnav"><a href="/">Home</a><a class="active" href="/displayfavourites">Favourites</a><a href="/logout">Log out</a></div></div><body>';
 
@@ -149,11 +151,18 @@ router.get('/displayfavourites', function(req,res){
 
 });
 
+       
+    } else {
+        res.send("Please login");
+    }
+    
 });
 
 
 
     router.get('/search', function (req, res) {
+
+        if (req.session.name){
         User.findOne({email:req.session.email}, function(err,user) {
 
 
@@ -242,6 +251,9 @@ router.get('/displayfavourites', function(req,res){
          });
 
         });
+    }else {
+        res.send("Please login");
+    }
 
         });
 
