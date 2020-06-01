@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/signup', function (req, res) {
-    res.sendfile("signup.html");
+    res.sendFile("signup.html",{ root : "./"});
 
 
 });
@@ -44,8 +44,9 @@ router.get('/logout', function (req, res) {
 
 router.get('/login', function(req,res){
 
-    res.sendfile("login.html", {success: false, errors: req.session.errors});
-    req.session.errors = null;
+    res.sendFile("login.html",{ root : "./"});
+    //res.sendfile("login.html", {success: false, errors: req.session.errors});
+    //req.session.errors = null;
 
 });
 
