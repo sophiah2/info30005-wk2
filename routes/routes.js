@@ -44,7 +44,10 @@ router.get('/logout', function (req, res) {
 
 router.get('/login', function(req,res){
 
-    res.sendfile("./views/login.html", {success: false, errors: req.session.errors});
+    res.render("login.ejs",{
+        congr: "", success: false, errors: req.session.errors
+    });
+    //res.sendfile("./views/login.ejs", {success: false, errors: req.session.errors});
     req.session.errors = null;
 
 });
@@ -52,7 +55,7 @@ router.get('/login', function(req,res){
 router.post('/credentials', [
     check('email').isEmail().withMessage("Invalid email address"),
     check('password').isLength({ min: 3 }).withMessage("Password must be at least 3 chars long")
-    
+
 ],  function(req, res) {
 
     const errors = validationResult(req);
@@ -110,7 +113,7 @@ router.get('/displayfavourites', function(req,res){
 
 
         k=user._id;
-    
+
 
     var recipeOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css"/></head><div class="topnav"><div class="topnav"><a href="/">Home</a><a class="active" href="/displayfavourites">Favourites</a><a href="/logout">Log out</a></div></div><body>';
 
@@ -151,11 +154,11 @@ router.get('/displayfavourites', function(req,res){
 
 });
 
-       
+
     } else {
         res.send("Please login");
     }
-    
+
 });
 
 
@@ -188,14 +191,14 @@ router.get('/displayfavourites', function(req,res){
         var recipeOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css"/></head><div class="topnav"><div class="topnav"><a href="/">Home</a><a href="/displayfavourites">Favourites</a><a href="/logout">Log out</a></div></div><body>';
         const res1 = axios.get(qurl);
          const recipes = res1;
-        
+
         recipes.then(function(result) {
             recipeResults=result.data; // "Some User token"
-            
+
             if (recipeResults.count==0)
             {
                 recipeOutput += '<p> No results found. Please try again </p>';
-                
+
             }
             else{
                 if(recipeResults.count<19)
@@ -211,7 +214,7 @@ router.get('/displayfavourites', function(req,res){
                 const image = recipe.image;
                 const url = recipe.url;
                 const calories = recipe.calories.toFixed(2);
-                
+
                 recipeOutput += '<li class="favouriteResultOption">';
                 recipeOutput += '<div class="object">';
                 recipeOutput += '<a class="favouriteResultsLink" href="#">';
