@@ -17,7 +17,7 @@
           border: 1px solid #ccc;
           border-color: white;
           box-sizing: border-box;
-          background-color: #F0F0F0; 
+          background-color: #F0F0F0;
         }
         h2 {
             font-size: 40px;
@@ -73,13 +73,23 @@
     {
         var pwd = document.getElementById("password").value;
         var cfmpwd = document.getElementById("cfmpassword").value;
+        var isEmail = document.getElementById("email").value;
+        let str = "";
 
-        if (pwd != cfmpwd)
-        {
-            alert("Password and confirm password must match");
-            return false;
+        if(!( /(.+)@(.+){2,}\.(.+){2,}/.test(isEmail)) ) {
+            str += "Email address must be valid\n";
         }
-        return true;
+
+        if (pwd != cfmpwd) {
+                str += "Password and confirm password must match";
+        }
+
+        if (str.length){
+            alert(str);
+            return false;
+        } else {
+            return true;
+        }
     }
 </script>
 <body>
