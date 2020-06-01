@@ -174,15 +174,22 @@ router.get('/displayfavourites', function(req,res){
             health = health + req.query.health;
         }
 
-        var qurl="https://api.edamam.com/search?q=" + ing + "&app_id=" + process.env.EDAMOM_ID + "&app_key=" + process.env.EDAMOM_KEY + "&from=" + 0 + "&to=" + 10 + diet + health;
+        var qurl="https://api.edamam.com/search?q=" + ing + "&app_id=" + process.env.EDAMOM_ID + "&app_key=" + process.env.EDAMOM_KEY + "&from=" + 0 + "&to=" + 20 + diet + health;
         console.log(qurl);
         var recipeOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css"/></head><div class="topnav"><div class="topnav"><a href="/">Home</a><a href="/displayfavourites">Favourites</a><a href="/logout">Log out</a></div></div><body>';
         const res1 = axios.get(qurl);
          const recipes = res1;
-
+        console.log(recipes);
         recipes.then(function(result) {
             recipeResults=result.data; // "Some User token"
-            for (i = 0; i < 9; i++) {
+            
+            if (recipeResults.count==0)
+            {
+                recipeOutput += '<p> No results found. Please try again </p>';
+                
+            }
+            else{
+            for (i = 0; i < 19; i++) {
                 const recipe = recipeResults.hits[i].recipe;
                 const label = recipe.label;
                 const image = recipe.image;
@@ -227,7 +234,7 @@ router.get('/displayfavourites', function(req,res){
                 recipeOutput += '</li>';
 
 
-            }
+            }}
             recipeOutput+='<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><script src="js/script.js"></script></body></html>'
 
             res.send(recipeOutput);
