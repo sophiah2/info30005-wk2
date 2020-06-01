@@ -6,17 +6,6 @@ const app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-//Find one user by email
-function findUserByEmail(inputEmail) {
-    User.findOne({email:inputEmail}, function(err, user) {
-        if (user) {
-            return true;
-        } else {
-            return false;
-        }
-    });
-};
-
 /* For all the user's operation */
 // Create new user
 var createUser = function(req, res) {
