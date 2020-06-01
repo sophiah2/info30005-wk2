@@ -6,25 +6,28 @@ const app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-
 /* For all the user's operation */
 // Create new user
 var createUser = function(req, res) {
+    
+    
+    
     var user = new User({
         "name":req.body.name,
         "email":req.body.email,
         "password":req.body.password
     });
-
+    
     user.save(function(err, newUser) {
         if (!err) {
-            res.sendFile("login.html",{ root : "./"});
+            res.sendfile("./views/login.html");
         } else {
             res.sendStatus(400);
         }
     });
-};
 
+};
+ 
 // Find all users
 var findAllUsers = function(req, res) {
     User.find(function(err, users) {
@@ -35,7 +38,7 @@ var findAllUsers = function(req, res) {
         }
     });
 };
-
+ 
 // Find one user by id
 var findOneUser = function(req, res) {
     var userInx = req.params.id;
@@ -47,7 +50,7 @@ var findOneUser = function(req, res) {
         }
     });
 };
-
+ 
 //Find one user by name
 var findUserByName = function(req, res) {
     var userName = req.params.name;
@@ -86,9 +89,9 @@ var  addRecipe = function(req, res){
     "userId":req.body.userId,
     "label":req.body.label,
     "image": req.body.image,
-    "url":req.body.url
+    "url":req.body.url 
     });
-
+    
     recipe.save(function(err, newfav) {
         if (!err) {
             //res.sendFile("addsuccess.html");
@@ -98,8 +101,8 @@ var  addRecipe = function(req, res){
             res.sendStatus(400);
         }
     });
-
-
+    
+  
 };
 
 var findAllfav = function(req, res) {

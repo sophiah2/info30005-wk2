@@ -6,7 +6,7 @@
   <link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css"/>
   <style>
 
-    input[type=text], input[type=password] {
+    input[type=text], input[type=password],input[type=email] {
       width: 30%;
       padding: 15px 10px;
       margin: 8px 0;
@@ -85,8 +85,8 @@
 
     <div class="container" >
       <!--<label for="email"><b>E-mail</b></label><br>-->
-      <input type="text" name="email" id="email"
-      placeholder="Email" required><br>
+      <input type="email" name="email" id="email"
+      placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required><br>
 
       <!--<label for="password"><b>Password</b></label><br>-->
       <input type="password" name="password"

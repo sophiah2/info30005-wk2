@@ -35,20 +35,6 @@ describe('Unit Test - Input Validation', function() {
 
 });
 
-describe('HTTP integration testing with Chai assertions - Navigation to the welcome page', function() {
-
-    it('Should be navigated to the welcome page after login successfully', function(done) {
-        request(app)
-            .post('/credentials')
-            .send({ email: '123@123.com', password: '123' })
-            .end((err, res) => {
-                expect(res).to.redirectTo('/homepage');
-                done();
-            });
-    });
-
-});
-
 describe('Functional Test - User Login', function() {
 
     it('Should return "User does not exit" if user email or password does not exit', function(done) {

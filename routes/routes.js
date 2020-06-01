@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/signup', function (req, res) {
-    res.sendFile("signup.html",{ root : "./"});
+    res.sendfile("./views/signup.html");
 
 
 });
@@ -44,15 +44,13 @@ router.get('/logout', function (req, res) {
 
 router.get('/login', function(req,res){
 
-    res.sendFile("login.html",{ root : "./"});
-    //res.sendfile("login.html", {success: false, errors: req.session.errors});
-    //req.session.errors = null;
+    res.sendfile("./views/login.html", {success: false, errors: req.session.errors});
+    req.session.errors = null;
 
 });
 
 router.post('/credentials', [
-    check('email').isEmail().withMessage("Invalid email address"),
-    check('password').isLength({ min: 3 }).withMessage("Password must be at least 3 chars long")
+    
 ],  function(req, res) {
 
     const errors = validationResult(req);

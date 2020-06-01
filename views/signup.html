@@ -9,7 +9,7 @@
         form {
             float: center;
         }
-        input[type=text], input[type=password] {
+        input[type=text], input[type=password],input[type=email] {
             width: 30%;
           padding: 15px 10px;
           margin: 8px 0;
@@ -17,7 +17,7 @@
           border: 1px solid #ccc;
           border-color: white;
           box-sizing: border-box;
-          background-color: #F0F0F0;
+          background-color: #F0F0F0; 
         }
         h2 {
             font-size: 40px;
@@ -70,26 +70,15 @@
 </div>
 <script>
     function validate()
-    {
+    {   
         var pwd = document.getElementById("password").value;
         var cfmpwd = document.getElementById("cfmpassword").value;
-        var isEmail = document.getElementById("email").value;
-        let str = "";
-
-        if(!( /(.+)@(.+){2,}\.(.+){2,}/.test(isEmail)) ) {
-            str += "Email address must be valid\n";
-        }
-
-        if (pwd != cfmpwd) {
-                str += "Password and confirm password must match";
-        }
-
-        if (str.length){
-            alert(str);
+        if (pwd != cfmpwd)
+        {
+            alert("Password and confirm password must match");
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 </script>
 <body>
@@ -103,8 +92,8 @@
             placeholder="Name"  required><br>
 
             <!--<label for="name"><b>E-Mail</b></label><br>-->
-            <input type="text" name="email" id="email"
-            placeholder="Email " required><br>
+            <input type="email" name="email" id="email"
+            placeholder="Email"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"  required><br>
 
             <!--<label for="name"><b>Password</b></label><br>-->
             <input type="password" name="password" minlength="3"
