@@ -16,10 +16,11 @@ var createUser = function(req, res) {
         "password":req.body.password
     });
 
-    User.findOne({email:user.email}, function(err, user) {
-        if (user) {
+    User.findOne({email:user.email}, function(err, user1) {
+        if (user1) {
             res.send("User exited");
         } else {
+            console.log(user1);
             user.save(function (err, newUser) {
                 if (!err) {
                     res.render("login.ejs", {
