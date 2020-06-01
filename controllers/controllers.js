@@ -72,7 +72,7 @@ var findUserByName = function(req, res) {
 
 //Delete user by id
 var deleteUserById = function(req, res) {
-    var userId = req.params.id;
+    var userId = req.query.id;
     User.findByIdAndRemove(userId, function(err, user) {
         if (!err) {
             res.send("delete user");
@@ -81,6 +81,25 @@ var deleteUserById = function(req, res) {
         }
    });
 };
+
+
+var deleteFavById = function(req, res) {
+    var favId = req.params.favId;
+    console.log(favId);
+    Recipe.findByIdAndRemove(favId, function(err, fav) {
+        if (!err) {
+            console.log(fav);
+            //res.send("deleted fav");
+            res.redirect("/displayfavourites")
+
+        } else {
+            res.sendStatus(404);
+        }
+    });
+
+};
+
+
 
 var  addRecipe = function(req, res){
 
@@ -138,3 +157,4 @@ module.exports.deleteUserById = deleteUserById;
 module.exports.addRecipe = addRecipe;
 module.exports.findAllfav = findAllfav;
 module.exports.findfavById=findfavById;
+module.exports.deleteFavById = deleteFavById; 
