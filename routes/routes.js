@@ -50,6 +50,8 @@ router.get('/login', function(req,res){
 });
 
 router.post('/credentials', [
+    check('email').isEmail().withMessage("Invalid email address"),
+    check('password').isLength({ min: 3 }).withMessage("Password must be at least 3 chars long")
     
 ],  function(req, res) {
 
