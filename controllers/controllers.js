@@ -6,11 +6,20 @@ const app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
+//Find one user by email
+function findUserByEmail(inputEmail) {
+    User.findOne({email:inputEmail}, function(err, user) {
+        if (user) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+};
+
 /* For all the user's operation */
 // Create new user
 var createUser = function(req, res) {
-
-
 
     var user = new User({
         "name":req.body.name,
@@ -18,16 +27,21 @@ var createUser = function(req, res) {
         "password":req.body.password
     });
 
-    user.save(function(err, newUser) {
-        if (!err) {
-            res.render("login.ejs",{
-                congr: "You've successfully registered! Please "
-            });
+    User.findOne({email:user.email}, function(err, user) {
+        if (user) {
+            res.send("User exited");
         } else {
-            res.sendStatus(400);
+            user.save(function (err, newUser) {
+                if (!err) {
+                    res.render("login.ejs", {
+                        congr: "You've successfully registered! Please "
+                    });
+                } else {
+                    res.sendStatus(400);
+                }
+            });
         }
     });
-
 };
 
 // Find all users
