@@ -116,6 +116,7 @@ router.get('/displayfavourites', function(req,res){
         if (!err) {
             for (var i = 0; i < favourite.length; i++) {
                 var recipe = favourite[i];
+                const favId = recipe._id;
                 const label = recipe.label;
                 const image = recipe.image;
                 const url = recipe.url;
@@ -133,6 +134,10 @@ router.get('/displayfavourites', function(req,res){
                 recipeOutput += '<button type="submit"> View recipe </button>';
                 recipeOutput += '</form>';
                 recipeOutput += '</div>';
+                recipeOutput += '<form action="/favourites/delete/' + favId + '", method="post">';
+                recipeOutput += '<button type="submit" class="submit"> Delete </button>'
+                recipeOutput += '</form>';
+ 
             }
             recipeOutput+='<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><script src="js/script.js"></script></body></html>';
 
@@ -237,6 +242,7 @@ router.get('/displayfavourites', function(req,res){
 router.post('/addfavourites',controller.addRecipe);
 router.get('/favourites', controller.findAllfav);
 router.get('/favourites/userid/:userid', controller.findfavById);
+router.post('/favourites/delete/:favId', controller.deleteFavById);
 router.post('/users', controller.createUser);
 router.get('/users', controller.findAllUsers);
 router.get('/users/id/:id', controller.findOneUser);
