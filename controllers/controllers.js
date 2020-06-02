@@ -18,13 +18,17 @@ var createUser = function(req, res) {
 
     User.findOne({email:user.email}, function(err, user1) {
         if (user1) {
-            res.send("User exited");
+            console.log("ccccc");
+            res.render("login.ejs", {
+                congr: "Sign up with a different email or please ", congr1:""
+            });
+            
         } else {
             console.log(user1);
             user.save(function (err, newUser) {
                 if (!err) {
                     res.render("login.ejs", {
-                        congr: "You've successfully registered! Please "
+                        congr: "You've successfully registered! Please ", congr1:""
                     });
                 } else {
                     res.sendStatus(400);

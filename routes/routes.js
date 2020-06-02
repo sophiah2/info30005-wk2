@@ -45,7 +45,7 @@ router.get('/logout', function (req, res) {
 router.get('/login', function(req,res){
 
     res.render("login.ejs",{
-        congr: "", success: false, errors: req.session.errors
+        congr: "",congr1:"", success: false, errors: req.session.errors
     });
     //res.sendfile("./views/login.ejs", {success: false, errors: req.session.errors});
     req.session.errors = null;
@@ -86,7 +86,9 @@ router.post('/credentials', [
             res.redirect("/homepage");
 
         } else {
-            res.send("User does not exit");
+            res.render("login.ejs", {congr:"",
+                congr1: " again, invalid email or password!"
+            });
 
         }
     });
@@ -101,7 +103,7 @@ router.get('/homepage', function(req,res){
             }
         );
     } else {
-        res.send("Please login");
+        res.render("index.ejs");
     }
 })
 
@@ -156,7 +158,7 @@ router.get('/displayfavourites', function(req,res){
 
 
     } else {
-        res.send("Please login");
+        res.render("index.ejs");
     }
 
 });
@@ -263,7 +265,7 @@ router.get('/displayfavourites', function(req,res){
 
         });
     }else {
-        res.send("Please login");
+        res.render("index.ejs");
     }
 
         });
