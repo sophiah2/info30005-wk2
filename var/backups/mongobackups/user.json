@@ -1,0 +1,217 @@
+[{
+  "_id": {
+    "$oid": "5e98766aba70695a406917c3"
+  },
+  "name": "Aneesh",
+  "email": "ac@gmail.com",
+  "password": "1234",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5e9aafe58231ad68a0c99ee5"
+  },
+  "name": "Jesus",
+  "email": "jesus@gmail.com",
+  "password": "12345",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5e9edac2de0c315896f9e2db"
+  },
+  "name": "Sophia Harrison",
+  "email": "static_soph@hotmail.com",
+  "password": "sss",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5e9ffe62b5ff90639fe3b9a5"
+  },
+  "name": "Bette Davis",
+  "email": "betted@gmail.com",
+  "password": "betted",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ea17d459c1262621890eebb"
+  },
+  "name": "tien",
+  "email": "tien@gmail.c",
+  "password": "tien",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5eaabec83f57732140898ab5"
+  },
+  "name": "claire",
+  "email": "claire_saffitz@gmail.com",
+  "password": "123456789",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5eab7997676a76002406e9df"
+  },
+  "name": "elizabeth",
+  "email": "liztaylor@gmail.com",
+  "password": "liztaylor",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5eb0fed44cde22a868a02ab0"
+  },
+  "name": "sophia",
+  "email": "sophia@gmail.com",
+  "password": "sophia",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5eb23d7d84f42543c723d2d1"
+  },
+  "name": "mytien",
+  "email": "mytien@email.com",
+  "password": "mytien",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5eb2880cb58b413b5009a233"
+  },
+  "name": "yi",
+  "email": "yi@email.com",
+  "password": "1234",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5eb3b6bdea5ec60024a1cdcc"
+  },
+  "name": "Priyankar Bhattacharjee",
+  "email": "pryan.225@gmail.com",
+  "password": "ABC123",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5eb8d1279806753bd4f40c5f"
+  },
+  "name": "helen",
+  "email": "helen@email.com",
+  "password": "1234",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ebbf9d987b5621a6fde4577"
+  },
+  "name": "miti",
+  "email": "miti@email.com",
+  "password": "miti",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ebfefbcec997e0f7a611117"
+  },
+  "name": "my",
+  "email": "my@email.com",
+  "password": "mye",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ec007d9c84f73002472d43d"
+  },
+  "name": "Steven",
+  "email": "steven7@yahoo.co.in",
+  "password": "Steven11",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ec0da600b2a3e00240404ee"
+  },
+  "name": "Ronal Singh",
+  "email": "instructor@info30005.com",
+  "password": "Admin_!2#4",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ed47d94d6199f00248b453a"
+  },
+  "name": "John",
+  "email": "johnsmith@gmail.com",
+  "password": "johnsmith",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ed4b6a0c89a930af8b2e107"
+  },
+  "name": "kkkk",
+  "email": "kkkk",
+  "password": "1234",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ed4cebdcab8bb4088dddf28"
+  },
+  "name": "Aneesh Chattaraj",
+  "email": "aneeshchattaraj7@gmail.com",
+  "password": "12345",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ed4d204227ec2532ce2c0ed"
+  },
+  "name": "Aneesh Chattaraj",
+  "email": "aneeshchattaraj711@gmail.com",
+  "password": "123456",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ed5179e726c0aee29abfa7a"
+  },
+  "name": "123",
+  "email": "123@123.com",
+  "password": "123",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ed524286ecdeef45817e765"
+  },
+  "name": "123",
+  "email": "123@123.com",
+  "password": "123",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ed5340548a06755fcdeb298"
+  },
+  "name": "anny",
+  "email": "anny@gmail.com",
+  "password": "123456",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ed53afc0b58d60024573028"
+  },
+  "name": "andy",
+  "email": "andy_b@gmail.com",
+  "password": "123456",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ed53be40b58d60024573029"
+  },
+  "name": "jesus@",
+  "email": "jesus_new1@gmail.com",
+  "password": "12345",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ed5cb9c27454c0024c44b10"
+  },
+  "name": "So",
+  "email": "so.phia@hello.com",
+  "password": "sophia",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ed6966fad9a290b80bd62ad"
+  },
+  "name": "jesus",
+  "email": "jesus@11.com",
+  "password": "12345",
+  "__v": 0
+}]
