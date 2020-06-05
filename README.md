@@ -21,7 +21,9 @@
 * If there is no logged in user/cannot detect an active session it would redirect control of the app to the welcome page, e.g. pasting https://test-kitchen-app.herokuapp.com/homepage in a browser with no logged in session would redirect to welcome page!
 * When signing up use correct pattern for email i.e.  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" or else wont be able to signup
 
-
+## SET UP ON LOCAL MACHINE
+* npm install: if node modules not included
+* npm start: to run on localhost:3000
 ## Details about each feature
 ### Login/Sign-up (user-related features)
 #### Routes
