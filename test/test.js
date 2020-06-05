@@ -42,7 +42,7 @@ describe('HTTP integration testing with Chai assertions - Navigation to the welc
         request(app)
             .post('/credentials')
             .send({ email: '123@123.com', password: '123' })
-            .end((err, res) => {
+            .end((err, res) => {  
                 expect(res).to.redirectTo('/homepage');
                 done();
             });
@@ -53,16 +53,6 @@ describe('HTTP integration testing with Chai assertions - Navigation to the welc
 describe('Functional Test - User Login', function() {
     
 
-    it('Should return to login page if user email or password does not exit', function(done) {
-        request(app)
-            .post('/credentials')
-            .send({email: '123@123.com', password: '111'})
-            .end((err, res) => {
-                expect(res).to.redirectTo('/login');
-                done();
-            });
-            
-    });
 
     it('Should success if credential is valid', function(done) {
         request(app)
