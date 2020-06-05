@@ -24,6 +24,7 @@
 ## SET UP ON LOCAL MACHINE
 * npm install: if node modules not included
 * npm start: to run on localhost:3000
+* npm test: to run 5 tests related to login core feature 
 ## Details about each feature
 ### Login/Sign-up (user-related features)
 #### Routes
