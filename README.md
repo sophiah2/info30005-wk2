@@ -15,7 +15,7 @@
 
 * The website also features an interactive **login** and **sign-up** function which allows the user to create an account using their own credentials. 
 
-* The website also allows you to add your favourite recipes to look up later like a recipe diary.
+* The website also allows you to add/delete your favourite recipes to look up later like a recipe diary.
 
 ## NOTES FOR THE SYSTEM
 * If there is no logged in user/cannot detect an active session it would redirect control of the app to the welcome page, e.g. pasting https://test-kitchen-app.herokuapp.com/homepage in a browser with no logged in session would redirect to welcome page!
