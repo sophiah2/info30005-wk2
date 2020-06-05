@@ -16,7 +16,11 @@
 * The website also features an interactive **login** and **sign-up** function which allows the user to create an account using their own credentials. 
 
 * The website also allows you to add your favourite recipes to look up later like a recipe diary.
-<br>
+
+## NOTES FOR THE SYSTEM
+* If there is no logged in user/cannot detect an active session it would redirect control of the app to the welcome page, e.g. pasting https://test-kitchen-app.herokuapp.com/homepage in a browser with no logged in session would redirect to welcome page!
+* When signing up use correct pattern for email i.e.  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" or else wont be able to signup
+
 
 ## Details about each feature
 ### Login/Sign-up (user-related features)
@@ -89,6 +93,13 @@ var users = mongoose.model('users', userSchema);
 ```
 router.get('/search', function (req, res) {
 
+        if (req.session.name){
+        User.findOne({email:req.session.email}, function(err,user) {
+
+
+            k=user._id;
+
+
         var ing=req.query.Recipe_Search;
         var diet="&diet=";
         if (req.query.diet=="none") {
@@ -102,26 +113,41 @@ router.get('/search', function (req, res) {
         } else {
             health = health + req.query.health;
         }
-        console.log(ing)
-        var qurl="https://api.edamam.com/search?q=" + ing + "&app_id=" + process.env.EDAMOM_ID + "&app_key=" + process.env.EDAMOM_KEY + "&from=" + 0 + "&to=" + 10 + diet + health;
+
+        var qurl="https://api.edamam.com/search?q=" + ing + "&app_id=" + process.env.EDAMOM_ID + "&app_key=" + process.env.EDAMOM_KEY + "&from=" + 0 + "&to=" + 20 + diet + health;
         console.log(qurl);
-        var recipeOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link href="css/normalize.css" rel="stylesheet"><link href="css/style.css" rel="stylesheet"></head><body>';
+        var recipeOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css"/></head><div class="topnav"><div class="topnav"><a href="/">Home</a><a href="/displayfavourites">Favourites</a><a href="/logout">Log out</a></div></div><body>';
         const res1 = axios.get(qurl);
          const recipes = res1;
 
         recipes.then(function(result) {
             recipeResults=result.data; // "Some User token"
-            for (i = 0; i < 9; i++) {
+
+            if (recipeResults.count==0)
+            {
+                recipeOutput += '<p> No results found. Please try again </p>';
+
+            }
+            else{
+                if(recipeResults.count<19)
+                {
+                    counter=recipeResults.count-1;
+                }
+                else {
+                    counter=19;
+                }
+            for (i = 0; i < counter; i++) {
                 const recipe = recipeResults.hits[i].recipe;
                 const label = recipe.label;
                 const image = recipe.image;
                 const url = recipe.url;
                 const calories = recipe.calories.toFixed(2);
-                recipeOutput += '<li class="searchingResultOption">';
+
+                recipeOutput += '<li class="favouriteResultOption">';
                 recipeOutput += '<div class="object">';
-                recipeOutput += '<a class="searchingResultsLink" href="#">';
-                recipeOutput += '<span class="searchingImgContainer">';
-                recipeOutput += '<img class="searchingImg" src="' + image + '" alt="pastarecipeLink">';
+                recipeOutput += '<a class="favouriteResultsLink" href="#">';
+                recipeOutput += '<span class="favouriteImgContainer">';
+                recipeOutput += '<img class="favouriteImg" src="' + image + '" alt="recipeLink">';
                 recipeOutput += '</span>';
                 recipeOutput += '</a>';
                 recipeOutput += '</div>';
@@ -134,29 +160,39 @@ router.get('/search', function (req, res) {
                 recipeOutput += '<span class="num">' + recipe.calories.toFixed(2) + '</span><br />';
                 recipeOutput += '</div>';
                 recipeOutput += '</div>';
-                recipeOutput += '<form action="/addfavourites" method="post">';
+
+                recipeOutput += '<script>';
+                recipeOutput += 'function successAlert(){';
+                recipeOutput += 'alert("Successfully added to favorites!");}';
+                recipeOutput += '</script>';
+
+                recipeOutput += '<form action="/addfavourites" method="post" onsubmit="successAlert()">';
                 recipeOutput += '<div class="addButton">';
                 recipeOutput += '<input type="hidden"  name="label" id="label" value="' + label + '">';
-                recipeOutput += '<input type="hidden"  name="userId" id="userId" value="' + currentuser + '">';
+                recipeOutput += '<input type="hidden"  name="userId" id="userId" value="' + k + '">';
                 recipeOutput += '<input type="hidden"  name="image" id="image" value="' + image + '">';
                 recipeOutput += '<input type="hidden"  name="url" id="url" value="' + url + '">';
                 recipeOutput += '<button type="submit" class="submit"> Add to favorites </button>';
+
                 recipeOutput += '</div>';
                 recipeOutput += '</form>';
-                recipeOutput += '<form action="' + url + '">'
+                recipeOutput += '<form action="' + url + '" target="_blank">'
                 recipeOutput += '<button type="submit"> View recipe </button>'
                 recipeOutput += '</form>'
                 recipeOutput += '</li>';
 
 
-            }
+            }}
             recipeOutput+='<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><script src="js/script.js"></script></body></html>'
-            console.log(currentuser)
+
             res.send(recipeOutput);
 
          });
 
-
+        });
+    }else {
+        res.render("index.ejs");
+    }
 
         });
 ```
@@ -180,11 +216,23 @@ router.get('/favourites/userid/:userid', controller.findfavById);
 * displaying user favourites
 ```
 router.get('/displayfavourites', function(req,res){
-    var recipeOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link href="css/normalize.css" rel="stylesheet"><link href="css/style.css" rel="stylesheet"></head><body>';
-    Recipe.find({userId:currentuser}, function(err, favourite) {
+
+    if (req.session.name){
+        var k;
+    User.findOne({email:req.session.email}, function(err,user) {
+
+
+        k=user._id;
+
+
+    var recipeOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css"/></head><div class="topnav"><div class="topnav"><a href="/">Home</a><a class="active" href="/displayfavourites">Favourites</a><a href="/logout">Log out</a></div></div><body>';
+
+    Recipe.find({userId:k}, function(err, favourite) {
+
         if (!err) {
             for (var i = 0; i < favourite.length; i++) {
                 var recipe = favourite[i];
+                const favId = recipe._id;
                 const label = recipe.label;
                 const image = recipe.image;
                 const url = recipe.url;
@@ -198,21 +246,28 @@ router.get('/displayfavourites', function(req,res){
                 recipeOutput += '</div>';
                 recipeOutput += '<h3 class="resultsTitle">' + label + '</h3>';
                 recipeOutput += '<div class="data">';
-                recipeOutput += '<a class="ing" href="#">';
-                recipeOutput += '<form action="' + url + '">';
+                recipeOutput += '<form action="' + url + '" target="_blank">';
                 recipeOutput += '<button type="submit"> View recipe </button>';
                 recipeOutput += '</form>';
-                recipeOutput += '</a>';
                 recipeOutput += '</div>';
+                recipeOutput += '<form action="/favourites/delete/' + favId + '", method="post">';
+                recipeOutput += '<button type="submit" class="submit"> Delete </button>'
+                recipeOutput += '</form>';
             }
             recipeOutput+='<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><script src="js/script.js"></script></body></html>';
+
             res.send(recipeOutput);
         } else {
             res.sendStatus(404);
         }
     })
-    
-    
+
+});
+
+
+    } else {
+        res.render("index.ejs");
+    }
 
 });
 
