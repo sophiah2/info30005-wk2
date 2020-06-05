@@ -191,6 +191,12 @@ router.get('/displayfavourites', function(req,res){
         var qurl="https://api.edamam.com/search?q=" + ing + "&app_id=" + process.env.EDAMOM_ID + "&app_key=" + process.env.EDAMOM_KEY + "&from=" + 0 + "&to=" + 20 + diet + health;
         console.log(qurl);
         var recipeOutput = '<!DOCTYPE html><html><head><meta charset="utf-8"><title></title><meta name="author" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css"/></head><div class="topnav"><div class="topnav"><a href="/">Home</a><a href="/displayfavourites">Favourites</a><a href="/logout">Log out</a></div></div><body>';
+        if (ing==null)
+        {
+            recipeOutput += '<p> Invalid search, need ingredients or dish names in search </p>';
+            res.send(recipeOutput);
+        }
+        else{
         const res1 = axios.get(qurl);
          const recipes = res1;
 
@@ -262,7 +268,7 @@ router.get('/displayfavourites', function(req,res){
             res.send(recipeOutput);
 
          });
-
+        }
         });
     }else {
         res.render("index.ejs");
