@@ -20,6 +20,14 @@
 ## NOTES FOR THE SYSTEM
 * If there is no logged in user/cannot detect an active session it would redirect control of the app to the welcome page, e.g. pasting https://test-kitchen-app.herokuapp.com/homepage in a browser with no logged in session would redirect to welcome page!
 * When signing up use correct pattern for email i.e.  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" or else wont be able to signup
+## Front-end and directory files
+* search page views/search.ejs
+* search result and favourites result is built via route.js
+* login page views/login.js
+* signup page views/signup.html
+* welcome page views/index.ejs
+* Controllers and route work hand in hand to create our app
+* var folder has the backup json files from mongodb
 
 ## SET UP ON LOCAL MACHINE
 * npm install: if node modules not included
